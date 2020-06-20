@@ -114,13 +114,55 @@ mov_av_ce_14$tw = "14"
 mov_av_ce_14$state = "CEARA"
 mov_av_ce = rbind(mov_av_ce_5, mov_av_ce_7, mov_av_ce_9, mov_av_ce_14)
 
-mov_av = rbind(mov_av_ba, mov_av_ce, mov_av_ma, mov_av_sp)
+mov_av_am_7$tw = "7"
+mov_av_am_7$state = "AMAZONAS"
+mov_av_am_5$tw = "5"
+mov_av_am_5$state = "AMAZONAS"
+mov_av_am_9$tw = "9"
+mov_av_am_9$state = "AMAZONAS"
+mov_av_am_14$tw = "14"
+mov_av_am_14$state = "AMAZONAS"
+mov_av_am = rbind(mov_av_am_5, mov_av_am_7, mov_av_am_9, mov_av_am_14)
 
-mov_av_ce %>% filter(tw == "14") %>% 
+
+mov_av_rj_7$tw = "7"
+mov_av_rj_7$state = "RIO DE JANEIRO"
+mov_av_rj_5$tw = "5"
+mov_av_rj_5$state = "RIO DE JANEIRO"
+mov_av_rj_9$tw = "9"
+mov_av_rj_9$state = "RIO DE JANEIRO"
+mov_av_rj_14$tw = "14"
+mov_av_rj_14$state = "RIO DE JANEIRO"
+mov_av_rj = rbind(mov_av_rj_5, mov_av_rj_7, mov_av_rj_9, mov_av_rj_14)
+
+mov_av_mg_7$tw = "7"
+mov_av_mg_7$state = "MINAS GERAIS"
+mov_av_mg_5$tw = "5"
+mov_av_mg_5$state = "MINAS GERAIS"
+mov_av_mg_9$tw = "9"
+mov_av_mg_9$state = "MINAS GERAIS"
+mov_av_mg_14$tw = "14"
+mov_av_mg_14$state = "MINAS GERAIS"
+mov_av_mg = rbind(mov_av_mg_5, mov_av_mg_7, mov_av_mg_9, mov_av_mg_14)
+
+mov_av_df_7$tw = "7"
+mov_av_df_7$state = "DISTRITO FEDERAL"
+mov_av_df_5$tw = "5"
+mov_av_df_5$state = "DISTRITO FEDERAL"
+mov_av_df_9$tw = "9"
+mov_av_df_9$state = "DISTRITO FEDERAL"
+mov_av_df_14$tw = "14"
+mov_av_df_14$state = "DISTRITO FEDERAL"
+mov_av_df = rbind(mov_av_df_5, mov_av_df_7, mov_av_df_9, mov_av_df_14)
+
+mov_av = rbind(mov_av_ba, mov_av_ce, mov_av_ma, mov_av_sp, mov_av_am, mov_av_rj, mov_av_df, mov_av_mg)
+
+png("evolution_deaths_brasil.png",width=3200,height=1800,res=300)
+mov_av %>% filter(tw == "14") %>% 
    group_by(tw)%>% 
    ggplot(aes(x = date, y = moving_average)) + 
    geom_line() + 
-   labs(x = "Date", y = "Average deaths", col = "window average", title = "Covid19 daily deaths", subtitle = "Moving average - 14 dias") +
+   labs(x = "Date", y = "Average deaths", col = "window average", title = "Covid19 daily deaths", subtitle = "Moving average - 14 dias", caption = "by @Dadoscope1") +
    theme_minimal() + 
-   facet_wrap(~ state)
-
+   facet_wrap(~ state, scales = "free_y")
+dev.off()
